@@ -19,15 +19,14 @@ async function bootstrap() {
       }
     })
   );
-
-  app.useGlobalInterceptors(new ResponseInterceptor());
   
+  app.useGlobalInterceptors(new ResponseInterceptor());
+
   const httpAdapter = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   
   app.enableCors();
 
-  
   await app.listen(3000);
 }
 bootstrap();
