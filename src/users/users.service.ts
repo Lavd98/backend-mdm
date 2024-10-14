@@ -41,11 +41,11 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find({ where: { isActive: true } });
+    return this.usersRepository.find({ where: { isActive: true }, relations: ['profile'], });
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.usersRepository.findOne({ where: { id, isActive: true } });
+    const user = await this.usersRepository.findOne({ where: { id, isActive: true }, relations: ['profile'], });
     if (!user) {
       throw new NotFoundException(`Usuario con ID "${id}" no encontrado`);
     }
@@ -68,6 +68,10 @@ export class UsersService {
   }
 
   async findByUsername(username: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { username } });
+    return this.usersRepository.findOne({ where: { username, isActive: true }, relations: ['profile'] });
+  }
+
+  async updateLastLogin(userId: string): Promise<void> {
+    await this.usersRepository.update(userId, { lastLogin: new Date() });
   }
 }

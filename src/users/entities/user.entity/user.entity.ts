@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Profile } from 'src/profiles/entities/profile.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+
 
 @Entity('users')
 export class User {
@@ -6,13 +9,13 @@ export class User {
   id: string;
 
   @Column()
-  nombres: string;
+  firstName: string;
 
   @Column()
-  apellidoPaterno: string;
+  paternalSurname: string;
 
   @Column()
-  apellidoMaterno: string;
+  maternalSurname: string;
 
   @Column({ unique: true })
   username: string;
@@ -21,15 +24,21 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true })
   password: string;
 
-  @Column({ default: 'user' })
-  perfil: string;
+  @ManyToOne(() => Profile)
+  @JoinColumn({ name: 'profileId' })
+  profile: Profile;
+
+  @Column()
+  @Exclude()
+  profileId: number;
 
   @Column({ default: true })
   isActive: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'datetime' })
   lastLogin: Date;
 
   @CreateDateColumn()
