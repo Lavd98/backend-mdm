@@ -2,19 +2,18 @@ import { Exclude } from 'class-transformer';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'first_name' })
   firstName: string;
 
-  @Column()
+  @Column({ name: 'paternal_surname' })
   paternalSurname: string;
 
-  @Column()
+  @Column({ name: 'maternal_surname' })
   maternalSurname: string;
 
   @Column({ unique: true })
@@ -28,22 +27,22 @@ export class User {
   password: string;
 
   @ManyToOne(() => Profile)
-  @JoinColumn({ name: 'profileId' })
+  @JoinColumn({ name: 'profile_id' })
   profile: Profile;
 
-  @Column()
+  @Column({ name: 'profile_id' })
   @Exclude()
   profileId: number;
 
-  @Column({ default: true })
+  @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
-  @Column({ nullable: true, type: 'datetime' })
+  @Column({ name: 'last_login', nullable: true, type: 'datetime' })
   lastLogin: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
