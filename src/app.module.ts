@@ -6,6 +6,9 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProfilesModule } from './profiles/profiles.module';
+import { ModulesModule } from './modules/modules.module';
+import { SubModulesModule } from './sub-modules/sub-modules.module';
+import { ProfilesSubModulesModule } from './profiles-sub-modules/profiles-sub-modules.module';
 
 @Module({
   imports: [
@@ -29,7 +32,7 @@ import { ProfilesModule } from './profiles/profiles.module';
       }),
     }),
     AuthModule, 
-    UsersModule, ProfilesModule
+    UsersModule, ProfilesModule, ModulesModule, SubModulesModule, ProfilesSubModulesModule
   ],
   controllers: [AppController],
   providers: [AppService],
