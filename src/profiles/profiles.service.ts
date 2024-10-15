@@ -17,8 +17,9 @@ export class ProfilesService {
     return await this.profilesRepository.save(profile);
   }
 
-  async findAll(): Promise<Profile[]> {
-    return await this.profilesRepository.find({ where: { isActive: true } });
+  async findAll(isActive?: boolean): Promise<Profile[]> {
+    const whereCondition = isActive !== undefined ? { isActive } : {};
+    return await this.profilesRepository.find({ where: whereCondition });
   }
 
   async findOne(id: number): Promise<Profile> {

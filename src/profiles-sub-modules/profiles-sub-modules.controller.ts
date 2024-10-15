@@ -7,7 +7,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @Controller('profiles-sub-modules')
 @UseGuards(JwtAuthGuard)
 export class ProfilesSubModulesController {
-  constructor(private readonly profilesSubModulesService: ProfilesSubModulesService) {}
+  constructor(private readonly profilesSubModulesService: ProfilesSubModulesService) { }
 
   @Post()
   create(@Body() createProfilesSubModulesDto: CreateProfilesSubModulesDto) {
@@ -22,6 +22,16 @@ export class ProfilesSubModulesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.profilesSubModulesService.findOne(+id);
+  }
+
+  @Get('user/:userId')
+  findByUserId(@Param('userId') userId: string) {
+    return this.profilesSubModulesService.findByUserId(userId);
+  }
+
+  @Get('profile/:profileId')
+  findByProfileId(@Param('profileId') profileId: string) {
+    return this.profilesSubModulesService.findByProfileId(+profileId);
   }
 
   @Patch(':id')

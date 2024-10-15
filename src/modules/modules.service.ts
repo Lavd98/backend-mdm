@@ -10,8 +10,9 @@ export class ModulesService {
     private modulesRepository: Repository<Module>,
   ) {}
 
-  async findAll(): Promise<Module[]> {
-    return this.modulesRepository.find({ where: { isActive: true } });
+  async findAll(isActive?: boolean): Promise<Module[]> {
+    const whereCondition = isActive !== undefined ? { isActive } : {};
+    return this.modulesRepository.find({ where: whereCondition });
   }
 
   async findOne(id: number): Promise<Module> {

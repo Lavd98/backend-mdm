@@ -40,8 +40,9 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find({ where: { isActive: true }, relations: ['profile'], });
+  findAll(isActive?: boolean): Promise<User[]> {
+    const whereCondition = isActive !== undefined ? { isActive } : {};
+    return this.usersRepository.find({ where: whereCondition, relations: ['profile'], });
   }
 
   async findOne(id: string): Promise<User> {

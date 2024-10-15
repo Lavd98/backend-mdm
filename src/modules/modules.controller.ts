@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query, UseGuards } from '@nestjs/common';
 import { ModulesService } from './modules.service';
 import { Module } from './entities/module.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -9,8 +9,9 @@ export class ModulesController {
   constructor(private readonly modulesService: ModulesService) {}
 
   @Get()
-  findAll(): Promise<Module[]> {
-    return this.modulesService.findAll();
+  findAll(@Query('isActive') isActive: string): Promise<Module[]> {
+    const isActiveBool = isActive ? isActive.toLowerCase() === 'true' : undefined;
+    return this.modulesService.findAll(isActiveBool);
   }
 
   @Get(':id')

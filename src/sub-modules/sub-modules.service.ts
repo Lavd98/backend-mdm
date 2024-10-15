@@ -10,9 +10,10 @@ export class SubModulesService {
     private subModulesRepository: Repository<SubModule>,
   ) {}
 
-  async findAll(): Promise<SubModule[]> {
+  async findAll(isActive?: boolean): Promise<SubModule[]> {
+    const whereCondition = isActive !== undefined ? { isActive } : {};
     return this.subModulesRepository.find({ 
-      where: { isActive: true },
+      where: whereCondition,
       relations: ['module']
     });
   }
