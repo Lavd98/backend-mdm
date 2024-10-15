@@ -51,9 +51,19 @@ export class ProfilesSubModulesService {
     // `, [userId]);
   }
 
+  // async findByProfileId(profileId: number) {
+  //   return this.profilesSubModulesRepository
+  //     .createQueryBuilder('psm')
+  //     .where('psm.profile_id = :profileId', { profileId })
+  //     .andWhere('psm.is_active = :isActive', { isActive: true })
+  //     .getMany();
+  // }
+
   async findByProfileId(profileId: number) {
     return this.profilesSubModulesRepository
       .createQueryBuilder('psm')
+      .leftJoinAndSelect('psm.profile', 'profile')
+      .leftJoinAndSelect('psm.subModule', 'subModule')
       .where('psm.profile_id = :profileId', { profileId })
       .andWhere('psm.is_active = :isActive', { isActive: true })
       .getMany();
