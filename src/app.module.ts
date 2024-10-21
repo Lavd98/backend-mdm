@@ -9,6 +9,10 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { ModulesModule } from './modules/modules.module';
 import { SubModulesModule } from './sub-modules/sub-modules.module';
 import { ProfilesSubModulesModule } from './profiles-sub-modules/profiles-sub-modules.module';
+import { TypeVehiclesModule } from './type-vehicles/type-vehicles.module';
+import { CategoryVehiclesModule } from './category-vehicles/category-vehicles.module';
+import { TypeServiceVehiclesModule } from './type-service-vehicles/type-service-vehicles.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
 
 @Module({
   imports: [
@@ -32,7 +36,7 @@ import { ProfilesSubModulesModule } from './profiles-sub-modules/profiles-sub-mo
       }),
     }),
     AuthModule, 
-    UsersModule, ProfilesModule, ModulesModule, SubModulesModule, ProfilesSubModulesModule
+    UsersModule, ProfilesModule, ModulesModule, SubModulesModule, ProfilesSubModulesModule, TypeVehiclesModule, CategoryVehiclesModule, TypeServiceVehiclesModule, VehiclesModule
   ],
   controllers: [AppController],
   providers: [AppService],
