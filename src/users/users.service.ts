@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
+import { ActivateUserDto } from './dto/activate-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -74,5 +75,23 @@ export class UsersService {
 
   async updateLastLogin(userId: string): Promise<void> {
     await this.usersRepository.update(userId, { lastLogin: new Date() });
+  }
+
+  async activateUser(id: string, activateUserDto: ActivateUserDto): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['profile']
+    });
+
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID "${id}" no encontrado`);
+    }
+
+    if (user.isActive === activateUserDto.isActive) {
+      throw new ConflictException(`El usuario ya se encuentra ${activateUserDto.isActive ? 'activado' : 'desactivado'}`);
+    }
+
+    user.isActive = activateUserDto.isActive;
+    return await this.usersRepository.save(user);
   }
 }

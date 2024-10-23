@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ActivateUserDto } from './dto/activate-user.dto';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard)
@@ -35,5 +36,13 @@ export class UsersController {
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @Patch(':id/activate')
+  activateUser(
+    @Param('id') id: string, 
+    @Body() activateUserDto: ActivateUserDto
+  ) {
+    return this.usersService.activateUser(id, activateUserDto);
   }
 }
