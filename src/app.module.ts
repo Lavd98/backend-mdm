@@ -13,6 +13,9 @@ import { TypeVehiclesModule } from './type-vehicles/type-vehicles.module';
 import { CategoryVehiclesModule } from './category-vehicles/category-vehicles.module';
 import { TypeServiceVehiclesModule } from './type-service-vehicles/type-service-vehicles.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { PersonsModule } from './persons/persons.module';
+import { TypeIdentityDocumentsModule } from './type-identity-documents/type-identity-documents.module';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
   imports: [
@@ -36,7 +39,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
       }),
     }),
     AuthModule, 
-    UsersModule, ProfilesModule, ModulesModule, SubModulesModule, ProfilesSubModulesModule, TypeVehiclesModule, CategoryVehiclesModule, TypeServiceVehiclesModule, VehiclesModule
+    UsersModule, ProfilesModule, ModulesModule, SubModulesModule, ProfilesSubModulesModule, TypeVehiclesModule, CategoryVehiclesModule, TypeServiceVehiclesModule, VehiclesModule, PersonsModule, TypeIdentityDocumentsModule, CompaniesModule
   ],
   controllers: [AppController],
   providers: [AppService],
